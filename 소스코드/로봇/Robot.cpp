@@ -2,10 +2,12 @@
 
 Robot::Sensor::begin(int rate) { //Robot 클래스 초기화
     Serial.println("센서들 초기화 중....");
-    SoftwareSerial uart_gps(GPS_RX_PIN, GPS_TX_PIN);
-    uart_gps.begin(GPS_BAUD);
-    bmp = Adafruit_BMP085_Unified(10085);
-
+    uart_gps.begin(BAUD_RATE);
+    if(!bmp.begin(BMP085_ULTRAHIGHRES)) {
+        Serial.println("BMP180 센서를 찾을 수 없습니다. 연결을 확인해 주세요!");
+        return
+    }
+    if()
 
     Serial.println("센서들 초기화 완료....");
 }
@@ -82,12 +84,14 @@ String Robot::Sensor::Sensing_altitude_altitude() { //고도 센서에서 고도
     	return : (String)고도값
     	// float 형의 값을 string 형으로 변환에서 리턴
     */
+    return String.valueOf(bmp.readAltitude(100560));
 }
 String Robot::Sensor::Sensing_altitude_temperature() { //고도 센서에서 온도값 센싱
     /*	고도 센서에서 온도값 가져오기
     	return : (String)온도값
     	// float 형의 값을 string 형으로 변환에서 리턴
     */
+     return String.valueOf(bmp.readTemperature());
 }
 
 String Robot::Sensor::get_gps_hardness() { //gps 경도값 가져오기
