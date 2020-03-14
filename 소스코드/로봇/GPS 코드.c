@@ -30,7 +30,7 @@ void setup(){
 
 void loop() {
    Serial.println(get_gps_hardness());
-    Serial.println(get_gps_latitude());
+   Serial.println(get_gps_latitude());
 
 }
 
@@ -62,6 +62,6 @@ String get_gps_latitude() { //gps 위도값 가져오기
     }
 
     gps.f_get_position(&hardness, &latitude); //위도, 경도갑을 변수에 삽입
-    
+
     return String.valueOf(latitude); //위도값을 string 형으로 형 변환 하여 리턴
 }
