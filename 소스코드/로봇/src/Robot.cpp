@@ -115,13 +115,17 @@ String Robot::Sensor::get_altitude_temperature() { //고도 센서에서 온도�
 void Robot::Action::begin() {
     ledcSetup(MOVE_MOTOR_RIGHT_PWM_CH,5000,8);
     ledcSetup(MOVE_MOTOR_LEFT_PWM_CH,5000,8);
+    ledcSetup(DIAMETER_MOTORPWM_CH,5000,8);
     ledcAttachPin(MOVE_MOTOR_RIGHT_PWM, MOVE_MOTOR_RIGHT_PWM_CH);
     ledcAttachPin(MOVE_MOTOR_LEFT_PWM, MOVE_MOTOR_LEFT_PWM_CH);
+    ledcAttachPin(DIAMETER_MOTOR_PWM, DIAMETER_MOTORPWM_CH);
 
     pinMode(MOVE_MOTOR_RIGHT_EN1, OUTPUT);       // Motor A 방향설정1
     pinMode(MOVE_MOTOR_RIGHT_EN2, OUTPUT);       // Motor A 방향설정2
     pinMode(MOVE_MOTOR_LEFT_EN1, OUTPUT);       // Motor B 방향설정1
     pinMode(MOVE_MOTOR_LEFT_EN2, OUTPUT);       // Motor B 방향설정2
+    pinMode(DIAMETER_MOTOR_EN1, OUTPUT);       // 지름 모터 1 방향설정1
+    pinMode(DIAMETER_MOTOR_EN2, OUTPUT);       // 지름 모터 B 방향설정2
 }
 
 
@@ -177,5 +181,17 @@ void Robot::Action::move_stop() {
     digitalWrite(MOVE_MOTOR_LEFT_EN2,LOW);
     ledcWrite(MOVE_MOTOR_RIGHT_PWM_CH, 0);
     ledcWrite(MOVE_MOTOR_LEFT_PWM_CH, 0);
+    delay(MOVE_MOTOR_DEL);
+}
+void Robot::Action::diameter_up() { // 지름 증가
+    digitalWrite(DIAMETER_MOTOR_EN1,HIGH);
+    digitalWrite(DIAMETER_MOTOR_EN2,LOW);
+    ledcWrite(DIAMETER_MOTORPWM_CH, MOVE_MOTOR_SPD);
+    delay(MOVE_MOTOR_DEL);
+}
+void Robot::Action::diameter_down() { // 지름 감소
+    digitalWrite(DIAMETER_MOTOR_EN1,HIGH);
+    digitalWrite(DIAMETER_MOTOR_EN2,LOW);
+    ledcWrite(DIAMETER_MOTORPWM_CH, MOVE_MOTOR_SPD);
     delay(MOVE_MOTOR_DEL);
 }
