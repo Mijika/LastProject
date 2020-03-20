@@ -1,6 +1,6 @@
 #include "Robot.h"
 
-void Robot::Sensor::begin(int rate) { //Robot 클래스 초기화
+Robot::Sensor::begin(int rate) { //Robot 클래스 초기화
     Serial.println("센서들 초기화 중....");
     uart_gps.begin(BAUD_RATE);
     if(!bmp.begin(BMP085_ULTRAHIGHRES)) {
@@ -12,7 +12,7 @@ void Robot::Sensor::begin(int rate) { //Robot 클래스 초기화
     Serial.println("센서들 초기화 완료....");
 }
 
-void Robot::Sensor::sening() { //sening 해서 내부 필드에 값 저장
+Robot::Sensor::void sening() { //sening 해서 내부 필드에 값 저장
     Serial.println("센싱중... ");
     delay(300);
     hardness = Sensing_gps_hardness();
@@ -108,90 +108,4 @@ String Robot::Sensor::get_altitude_altitude() { //고도 센서에서 고도값 
 }
 String Robot::Sensor::get_altitude_temperature() { //고도 센서에서 온도값 가져오기
     return temperature;
-}
-
-
-//--------------------------------Action--------------------//
-void Robot::Action::begin() {
-    ledcSetup(MOVE_MOTOR_RIGHT_PWM_CH,5000,8);
-    ledcSetup(MOVE_MOTOR_LEFT_PWM_CH,5000,8);
-    ledcSetup(DIAMETER_MOTORPWM_CH,5000,8);
-    ledcAttachPin(MOVE_MOTOR_RIGHT_PWM, MOVE_MOTOR_RIGHT_PWM_CH);
-    ledcAttachPin(MOVE_MOTOR_LEFT_PWM, MOVE_MOTOR_LEFT_PWM_CH);
-    ledcAttachPin(DIAMETER_MOTOR_PWM, DIAMETER_MOTORPWM_CH);
-
-    pinMode(MOVE_MOTOR_RIGHT_EN1, OUTPUT);       // Motor A 방향설정1
-    pinMode(MOVE_MOTOR_RIGHT_EN2, OUTPUT);       // Motor A 방향설정2
-    pinMode(MOVE_MOTOR_LEFT_EN1, OUTPUT);       // Motor B 방향설정1
-    pinMode(MOVE_MOTOR_LEFT_EN2, OUTPUT);       // Motor B 방향설정2
-    pinMode(DIAMETER_MOTOR_EN1, OUTPUT);       // 지름 모터 1 방향설정1
-    pinMode(DIAMETER_MOTOR_EN2, OUTPUT);       // 지름 모터 B 방향설정2
-}
-
-
-void Robot::Action::led_on() { //LED 전등 온
-    digitalWrite(LED_RIGHT, HIGH);
-    digitalWrite(LED_LEFT, HIGH);
-}
-void Robot::Action::led_off() { //LED 전등 오프
-    digitalWrite(LED_RIGHT, LOW);
-    digitalWrite(LED_LEFT, LOW);
-}
-
-void Robot::Action::move_forward() { //모터 전진
-    digitalWrite(MOVE_MOTOR_RIGHT_EN1,HIGH);
-    digitalWrite(MOVE_MOTOR_RIGHT_EN2,LOW);
-    digitalWrite(MOVE_MOTOR_LEFT_EN1,HIGH);
-    digitalWrite(MOVE_MOTOR_LEFT_EN2,LOW);
-    ledcWrite(MOVE_MOTOR_RIGHT_PWM_CH, MOVE_MOTOR_SPD);
-    ledcWrite(MOVE_MOTOR_LEFT_PWM_CH, MOVE_MOTOR_SPD);
-    delay(MOVE_MOTOR_DEL);
-}
-void Robot::Action::move_reverse() { //모터 후진
-    digitalWrite(MOVE_MOTOR_RIGHT_EN1,LOW);
-    digitalWrite(MOVE_MOTOR_RIGHT_EN2,HIGH);
-    digitalWrite(MOVE_MOTOR_LEFT_EN1,LOW);
-    digitalWrite(MOVE_MOTOR_LEFT_EN2,HIGH);
-    ledcWrite(MOVE_MOTOR_RIGHT_PWM_CH, MOVE_MOTOR_SPD);
-    ledcWrite(MOVE_MOTOR_LEFT_PWM_CH, MOVE_MOTOR_SPD);
-    delay(MOVE_MOTOR_DEL);
-}
-void Robot::Action::move_left_turn() { //모터 좌회전
-    digitalWrite(MOVE_MOTOR_RIGHT_EN1,HIGH);
-    digitalWrite(MOVE_MOTOR_RIGHT_EN2,LOW);
-    digitalWrite(MOVE_MOTOR_LEFT_EN1,LOW);
-    digitalWrite(MOVE_MOTOR_LEFT_EN2,HIGH);
-    ledcWrite(MOVE_MOTOR_RIGHT_PWM_CH, MOVE_MOTOR_SPD);
-    ledcWrite(MOVE_MOTOR_LEFT_PWM_CH, MOVE_MOTOR_SPD);
-    delay(MOVE_MOTOR_DEL);
-}
-void Robot::Action::move_right_turn() { //모터 우회전
-    digitalWrite(MOVE_MOTOR_RIGHT_EN1,LOW);
-    digitalWrite(MOVE_MOTOR_RIGHT_EN2,HIGH);
-    digitalWrite(MOVE_MOTOR_LEFT_EN1,HIGH);
-    digitalWrite(MOVE_MOTOR_LEFT_EN2,LOW);
-    ledcWrite(MOVE_MOTOR_RIGHT_PWM_CH, MOVE_MOTOR_SPD);
-    ledcWrite(MOVE_MOTOR_LEFT_PWM_CH, MOVE_MOTOR_SPD);
-    delay(MOVE_MOTOR_DEL);
-}
-void Robot::Action::move_stop() {
-    digitalWrite(MOVE_MOTOR_RIGHT_EN1,LOW);
-    digitalWrite(MOVE_MOTOR_RIGHT_EN2,LOW);
-    digitalWrite(MOVE_MOTOR_LEFT_EN1,LOW);
-    digitalWrite(MOVE_MOTOR_LEFT_EN2,LOW);
-    ledcWrite(MOVE_MOTOR_RIGHT_PWM_CH, 0);
-    ledcWrite(MOVE_MOTOR_LEFT_PWM_CH, 0);
-    delay(MOVE_MOTOR_DEL);
-}
-void Robot::Action::diameter_up() { // 지름 증가
-    digitalWrite(DIAMETER_MOTOR_EN1,HIGH);
-    digitalWrite(DIAMETER_MOTOR_EN2,LOW);
-    ledcWrite(DIAMETER_MOTORPWM_CH, MOVE_MOTOR_SPD);
-    delay(MOVE_MOTOR_DEL);
-}
-void Robot::Action::diameter_down() { // 지름 감소
-    digitalWrite(DIAMETER_MOTOR_EN1,HIGH);
-    digitalWrite(DIAMETER_MOTOR_EN2,LOW);
-    ledcWrite(DIAMETER_MOTORPWM_CH, MOVE_MOTOR_SPD);
-    delay(MOVE_MOTOR_DEL);
 }
