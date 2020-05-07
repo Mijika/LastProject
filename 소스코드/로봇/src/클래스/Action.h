@@ -50,26 +50,26 @@
 #define MOVE_DIAMETER_MOTOR_SPD 10 //지름 모터의 딜레이
 
 class Action {
-public :
-    //초기화 함수
-    Action();
+    public :
+        //초기화 함수
+        Action();
 
-    //LED 모듈에 불 들어 오게하는 코딩
-    void led_on(void); //LED 전등 온
-    void led_off(void); //LED 전등 오프
+        //LED 모듈에 불 들어 오게하는 코딩
+        void led_on(void); //LED 전등 온
+        void led_off(void); //LED 전등 오프
 
-    //이동 모터 4가지 모드 코딩(void전진, 후진, 왼쪽 턴, 오른쪽 턴)
-    void move_forward(void); //모터 전진
-    void move_reverse(void); //모터 후진
-    void move_left_turn(void); //모터 좌회전
-    void move_right_turn(void); //모터 우회전
-    void move_stop(void); //모터 정지
+        //이동 모터 4가지 모드 코딩(void전진, 후진, 왼쪽 턴, 오른쪽 턴)
+        void move_forward(void); //모터 전진
+        void move_reverse(void); //모터 후진
+        void move_left_turn(void); //모터 좌회전
+        void move_right_turn(void); //모터 우회전
+        void move_stop(void); //모터 정지
 
-    //지름 모터 앞, 뒷 2가지 모드 코딩(void지름 커짐, 작아짐)
-    void front_diameter_up(void); // 지름 증가
-    void front_diameter_down(void); // 지름 감소
-    void back_diameter_up(void); // 지름 증가
-    void back_diameter_down(void); // 지름 감소
+        //지름 모터 앞, 뒷 2가지 모드 코딩(void지름 커짐, 작아짐)
+        void front_diameter_up(void); // 지름 증가
+        void front_diameter_down(void); // 지름 감소
+        void back_diameter_up(void); // 지름 증가
+        void back_diameter_down(void); // 지름 감소
 };
 
 #endif
