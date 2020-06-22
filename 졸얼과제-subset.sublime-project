@@ -1,0 +1,15 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"file_exclude_patterns": ["*.pptx", "*.hwp"],
+			"folder_exclude_patterns": ["개발일지", "설계", "포플"]
+		}
+	],
+	"settings":
+	{
+		"tab_size": 4 // 탭 크기
+	}
+}
+
